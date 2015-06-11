@@ -10,7 +10,7 @@
                 <h1>Game Calculator</h1>
                 <p>Summarize stats about your games!</p>
             </div>
-            <!--jumbotron-->
+            <!--container-->
         </div>
         <!--jumbotron-->
         <div class="row">
@@ -125,9 +125,20 @@
         </div>
         <!--row-->
         <div id="button">
-            <asp:Button ID="SummaryButton" CssClass="btn-success" runat="server" Text="Summary" />
+            <asp:Button ID="SummaryButton" CssClass="btn-success" runat="server" Text="Summary" OnClick="SummaryButton_Click" />
+            <asp:Button ID="Button1" CssClass="btn-danger" runat="server" Text="Auto-Fill" OnClick="Button1_Click" />
         </div>
         <!--button-->
+        <div>
+            <asp:Label ID="GamesWonOutputLabel" runat="server"></asp:Label><br />
+            <asp:Label ID="GamesLostOutputLabel" runat="server"></asp:Label><br />
+            <asp:Label ID="WinPercentageOutputLabel" runat="server"></asp:Label><br />
+            <asp:Label ID="TotalPointsScoredOutputLabel" runat="server"></asp:Label><br />
+            <asp:Label ID="TotalPointsAllowedOutputLabel" runat="server"></asp:Label><br />
+            <asp:Label ID="PointDifferentialOutputLabel" runat="server"></asp:Label><br />
+            <asp:Label ID="TotalSpectatorsOutputLabel" runat="server"></asp:Label><br />
+            <asp:Label ID="AverageSpectatorsLabel" runat="server"></asp:Label><br />
+        </div>
     </div>
     <!--container-fluid-->
 </asp:Content>
