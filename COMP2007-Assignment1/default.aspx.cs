@@ -22,6 +22,7 @@ namespace COMP2007_Assignment1
             int listNum = 0;
             TextBox[] textBoxes = { PointsScoredTextBox1, PointsAllowedTextBox1, SpectatorsTextBox1, PointsScoredTextBox2, PointsAllowedTextBox2, SpectatorsTextBox2, PointsScoredTextBox3, PointsAllowedTextBox3, SpectatorsTextBox3, PointsScoredTextBox4, PointsAllowedTextBox4, SpectatorsTextBox4};
             int gamesWon = 0, gamesLost = 0, totalPointsScored = 0, totalPointsAllowed = 0, totalSpectators = 0;
+            string errorMessage = "alert('";
 
             //all checks nested in a try block, to prevent any errors from crashing the application
             try
@@ -29,26 +30,32 @@ namespace COMP2007_Assignment1
                 //for loop to make sure each RadioButtonList has an option selected
                 for (int i = 0; i < radioButtonLists.Length; i++)
                 {
-                    //if nothing has been selected set error to true
+                    //if nothing has been selected set error to true and display a message
                     if (radioButtonLists[i].SelectedIndex == -1)
                     {
+                        errorMessage += "A radio button was left unselected\\n";
                         error = true;
+                        break;
                     } //if ends
                 } //for ends
 
                 //for loop to ensure each textbox is not empty
                 for (int i = 0; i < textBoxes.Length; i++)
                 {
-                    //if any of the textboxes are empty set error to true
+                    //if any of the textboxes are empty set error to true and display a message
                     if (textBoxes[i].Text == "")
                     {
+                        errorMessage += "A text box was left empty\\n";
                         error = true;
+                        break;
                     } //if ends
 
-                    //if any of the textboxes are negative set error to true
+                    //if any of the textboxes are negative set error to true and display a message
                     if (int.Parse(textBoxes[i].Text) < 0)
                     {
+                        errorMessage += "A negative value was entered in a text box\\n";
                         error = true;
+                        break;
                     } //if ends
                 } //for ends
 
@@ -59,45 +66,60 @@ namespace COMP2007_Assignment1
                     //if the user has selected win...
                     if (radioButtonLists[listNum].SelectedIndex == 0)
                     {
-                        //if the points scored is less than points allowed set error to true
+                        //if the points scored is less than points allowed set error to true and 
+                        //display a message
                         if (int.Parse(textBoxes[i].Text) < int.Parse(textBoxes[i + 1].Text))
                         {
+                            errorMessage += "Win was selected for a game that was lost\\n";
                             error = true;
+                            break;
                         } //if ends
                     } //if ends
                     //if the user has selected lose...
                     else if (radioButtonLists[listNum].SelectedIndex == 1)
                     {
-                        //if the points scored is more than points allowed set error to true
+                        //if the points scored is more than points allowed set error to true and 
+                        //display a message
                         if (int.Parse(textBoxes[i].Text) > int.Parse(textBoxes[i + 1].Text))
                         {
+                            errorMessage += "Lose was selected for a game that was won\\n";
                             error = true;
                         } //if ends
                     } //else if ends
 
-                    //ensure the points scored and points allowed are not the same
-                    if (textBoxes[i].Text == textBoxes[i + 1].Text)
+                    //if points scored and points allowed are the same set errot to true and 
+                    //display a message
+                    if (int.Parse(textBoxes[i].Text) == int.Parse(textBoxes[i + 1].Text))
                     {
+                        errorMessage += "Points scored and points allowed cannot be the same\\n";
                         error = true;
                     } //if ends
 
+                    //increment listNum
                     listNum++;
                 } //for ends
             } //try ends
 
-            //catch any format exceptions, overflow exceptions and general exceptions
-            catch(FormatException)
+            //catch any format exceptions, overflow exceptions and general exceptions setting error
+            //error to true and displaying a message if any occur
+            catch (FormatException)
             {
+                errorMessage += "A non-integer value was entered in a text box\\n";
                 error = true;
             } //catch ends
-            catch(OverflowException)
+            catch (OverflowException)
             {
+                errorMessage += "Too many digits were entered in a text box\\n";
                 error = true;
             } //catch ends
-            catch(Exception)
+            catch (Exception)
             {
+                errorMessage += "An error occured\\n";
                 error = true;
             } //catch ends
+
+            //close errorMessage's bracket
+            errorMessage += "');";
 
             //if there were no errors perform the calculations
             if(!error)
@@ -125,7 +147,7 @@ namespace COMP2007_Assignment1
                 totalPointsAllowed = int.Parse(textBoxes[1].Text) + int.Parse(textBoxes[4].Text) + int.Parse(textBoxes[7].Text) + int.Parse(textBoxes[10].Text);
 
                 //print out total points scored, allowed and the point differential
-                TotalPointsScoredOutputLabel.Text = "Total Points Scored: " + totalPointsAllowed.ToString();
+                TotalPointsScoredOutputLabel.Text = "Total Points Scored: " + totalPointsScored.ToString();
                 TotalPointsAllowedOutputLabel.Text = "Total Points Allowed: " + totalPointsAllowed.ToString();
                 PointDifferentialOutputLabel.Text = "Point Differential: " + (totalPointsScored - totalPointsAllowed).ToString();
 
@@ -136,6 +158,11 @@ namespace COMP2007_Assignment1
                 TotalSpectatorsOutputLabel.Text = "Total Spectators: " + totalSpectators.ToString();
                 AverageSpectatorsLabel.Text = "Average Spectators: " + ((float)totalSpectators / 4).ToString();
             } //if ends
+            //else if there were errors, display all error messages
+            else
+            {
+                ClientScript.RegisterStartupScript(GetType(), "hwa", errorMessage, true);
+            } //else ends
         } //method SummaryButton_Click ends
 
         protected void Button1_Click(object sender, EventArgs e)
