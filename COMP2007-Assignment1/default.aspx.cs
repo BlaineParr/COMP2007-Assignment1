@@ -17,7 +17,7 @@ namespace COMP2007_Assignment1
         protected void SummaryButton_Click(object sender, EventArgs e)
         {
             //local variables
-            bool error = false;
+            bool error = false, winTriggered = false, loseTriggered=false;
             RadioButtonList[] radioButtonLists = {ResultRadioButtonList1, ResultRadioButtonList2, ResultRadioButtonList3, ResultRadioButtonList4};
             int listNum = 0;
             TextBox[] textBoxes = { PointsScoredTextBox1, PointsAllowedTextBox1, SpectatorsTextBox1, PointsScoredTextBox2, PointsAllowedTextBox2, SpectatorsTextBox2, PointsScoredTextBox3, PointsAllowedTextBox3, SpectatorsTextBox3, PointsScoredTextBox4, PointsAllowedTextBox4, SpectatorsTextBox4};
@@ -70,9 +70,14 @@ namespace COMP2007_Assignment1
                         //display a message
                         if (int.Parse(textBoxes[i].Text) < int.Parse(textBoxes[i + 1].Text))
                         {
-                            errorMessage += "Win was selected for a game that was lost\\n";
-                            error = true;
-                            break;
+                            //check if winTriggered is false so we don't display the same message
+                            //twice
+                            if (!winTriggered)
+                            {
+                                errorMessage += "Win was selected for a game that was lost\\n";
+                                error = true;
+                                winTriggered = true; //set winTriggered to true
+                            } //if ends
                         } //if ends
                     } //if ends
                     //if the user has selected lose...
@@ -82,8 +87,14 @@ namespace COMP2007_Assignment1
                         //display a message
                         if (int.Parse(textBoxes[i].Text) > int.Parse(textBoxes[i + 1].Text))
                         {
-                            errorMessage += "Lose was selected for a game that was won\\n";
-                            error = true;
+                            //check if loseTriggered is false so we don't display the same message
+                            //twice
+                            if (!loseTriggered)
+                            {
+                                errorMessage += "Lose was selected for a game that was won\\n";
+                                error = true;
+                                loseTriggered = true; //set loseTriggered to true
+                            } //if ends
                         } //if ends
                     } //else if ends
 

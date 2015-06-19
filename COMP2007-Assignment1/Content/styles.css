@@ -1,6 +1,24 @@
-﻿body {
+﻿html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
     background-color: cornflowerblue;
     color: white;
+    margin-bottom: 60px;
+    padding-top: 70px;
+}
+
+.footer {
+  background-color: white;
+  bottom: 0;
+  color: cornflowerblue;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
 }
 
 .jumbotron {
