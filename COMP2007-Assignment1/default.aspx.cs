@@ -5,16 +5,32 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+/*
+ * Title: COMP2007 Assignment 1: Game Calculator
+ * Author: Blaine Parr
+ * Date: June 19, 2015
+ * Purpose: This application takes the user's input from a form and calculates statistics about four games that were played.
+ * The application then outputs the information for the user to see.
+ */
 namespace COMP2007_Assignment1
 {
     public partial class _default : System.Web.UI.Page
     {
+        //Protected Methods//////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /*
+         * This method hides the output div when the page is loaded.
+         */
         protected void Page_Load(object sender, EventArgs e)
         {
             //hide the output div until we need it
             output.Visible = false;
         } //method Page_Load ends
 
+        /*
+         * This method verifies the user's input about the games and then, if the information is valid, calculates statistics
+         * about the game when the summary button is clicked.
+         */
         protected void SummaryButton_Click(object sender, EventArgs e)
         {
             //local variables
@@ -184,39 +200,9 @@ namespace COMP2007_Assignment1
             } //else ends
         } //method SummaryButton_Click ends
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            RadioButtonList[] radioButtonLists = { ResultRadioButtonList1, ResultRadioButtonList2, ResultRadioButtonList3, ResultRadioButtonList4 };
-            TextBox[] textBoxes = { PointsScoredTextBox1, PointsAllowedTextBox1, SpectatorsTextBox1, PointsScoredTextBox2, PointsAllowedTextBox2, SpectatorsTextBox2, PointsScoredTextBox3, PointsAllowedTextBox3, SpectatorsTextBox3, PointsScoredTextBox4, PointsAllowedTextBox4, SpectatorsTextBox4 };
-            bool odd = true;
-            for (int i = 0; i < radioButtonLists.Length; i++)
-            {
-                if (odd)
-                {
-                    radioButtonLists[i].SelectedIndex = 0;
-                    odd = false;
-                }
-                else
-                {
-                    radioButtonLists[i].SelectedIndex = 1;
-                    odd = true;
-                }
-            }
-            for (int i = 0; i < textBoxes.Length; i++)
-            {
-                if (odd)
-                {
-                    textBoxes[i].Text = "9";
-                    odd = false;
-                }
-                else
-                {
-                    textBoxes[i].Text = "8";
-                    odd = true;
-                }
-            }
-        } //method Button1_Click ends
-
+        /*
+         * This method clears the form when the clear button is clicked.
+         */
         protected void ClearButton_Click(object sender, EventArgs e)
         {
             //local variables
@@ -239,6 +225,9 @@ namespace COMP2007_Assignment1
             clearOutput();
         } //method ClearButton_Click ends
 
+        /*
+         * This method clears the output section of the form and hides the output div.
+         */
         protected void clearOutput()
         {
             //hide the output div

@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="Game Calculator" Language="C#" MasterPageFile="~/MasterPages/Frontend.Master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="COMP2007_Assignment1._default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <!--Title: COMP2007 Assignment 1: Game Calculator
+     *  Author: Blaine Parr
+     *  Date: June 19, 2015
+     *  Purpose: This application takes the user's input from a form and calculates statistics about four games that were played.
+     *  The application then outputs the information for the user to see.-->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
@@ -125,7 +130,6 @@
         <!--row-->
         <div id="button">
             <asp:Button ID="SummaryButton" CssClass="btn-success" runat="server" Text="Summary" OnClick="SummaryButton_Click" />
-            <asp:Button ID="Button1" CssClass="btn-danger" runat="server" Text="Auto-Fill" OnClick="Button1_Click" />
             <asp:Button ID="ClearButton" CssClass="btn-warning" runat="server" Text="Clear Form" OnClick="ClearButton_Click" />
         </div>
         <!--button-->

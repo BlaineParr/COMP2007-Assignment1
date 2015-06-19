@@ -1,6 +1,11 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Frontend.master.cs" Inherits="COMP2007_Assignment1.MasterPages.Frontend" %>
 
 <!DOCTYPE html>
+<!--Title: COMP2007 Assignment 1: Game Calculator
+ *  Author: Blaine Parr
+ *  Date: June 19, 2015
+ *  Purpose: This application takes the user's input from a form and calculates statistics about four games that were played.
+ *  The application then outputs the information for the user to see.-->
 
 <html lang="en">
 <head runat="server">
