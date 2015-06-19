@@ -11,8 +11,9 @@ namespace COMP2007_Assignment1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-        }
+            //hide the output div until we need it
+            output.Visible = false;
+        } //method Page_Load ends
 
         protected void SummaryButton_Click(object sender, EventArgs e)
         {
@@ -135,6 +136,12 @@ namespace COMP2007_Assignment1
             //if there were no errors perform the calculations
             if(!error)
             {
+                //set the output div to be visible
+                output.Visible = true;
+
+                //add the styling for the outputdiv
+                output.Attributes["class"] = "output";
+
                 //for loop to count how many games were won and lost
                 for (int i = 0; i < radioButtonLists.Length; i++)
                 {
@@ -169,9 +176,10 @@ namespace COMP2007_Assignment1
                 TotalSpectatorsOutputLabel.Text = "Total Spectators: " + totalSpectators.ToString();
                 AverageSpectatorsLabel.Text = "Average Spectators: " + ((float)totalSpectators / 4).ToString();
             } //if ends
-            //else if there were errors, display all error messages
+            //else if there were errors, display all error messages and clear the output
             else
             {
+                clearOutput();
                 ClientScript.RegisterStartupScript(GetType(), "hwa", errorMessage, true);
             } //else ends
         } //method SummaryButton_Click ends
@@ -208,5 +216,43 @@ namespace COMP2007_Assignment1
                 }
             }
         } //method Button1_Click ends
+
+        protected void ClearButton_Click(object sender, EventArgs e)
+        {
+            //local variables
+            RadioButtonList[] radioButtonLists = { ResultRadioButtonList1, ResultRadioButtonList2, ResultRadioButtonList3, ResultRadioButtonList4 };
+            TextBox[] textBoxes = { PointsScoredTextBox1, PointsAllowedTextBox1, SpectatorsTextBox1, PointsScoredTextBox2, PointsAllowedTextBox2, SpectatorsTextBox2, PointsScoredTextBox3, PointsAllowedTextBox3, SpectatorsTextBox3, PointsScoredTextBox4, PointsAllowedTextBox4, SpectatorsTextBox4 };
+
+            //for loop to reset all of the radioButtons
+            for(int i = 0; i < radioButtonLists.Length; i++)
+            {
+                radioButtonLists[i].SelectedIndex = -1;
+            } //for ends
+
+            //for loop to reset all of the textBoxes
+            for(int i = 0; i < textBoxes.Length; i++)
+            {
+                textBoxes[i].Text = "";
+            } //for ends
+
+            //call clearOuput
+            clearOutput();
+        } //method ClearButton_Click ends
+
+        protected void clearOutput()
+        {
+            //hide the output div
+            output.Visible = false;
+
+            //set all of the output labels to be blank
+            GamesWonOutputLabel.Text = "";
+            GamesLostOutputLabel.Text = "";
+            WinPercentageOutputLabel.Text = "";
+            TotalPointsScoredOutputLabel.Text = "";
+            TotalPointsAllowedOutputLabel.Text = "";
+            PointDifferentialOutputLabel.Text = "";
+            TotalSpectatorsOutputLabel.Text = "";
+            AverageSpectatorsLabel.Text = "";
+        } //method clearOutput ends
     } //class default ends
 } //namespace COMP2007_Assignment1 ends
